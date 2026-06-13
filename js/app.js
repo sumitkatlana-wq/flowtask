@@ -880,9 +880,6 @@ const App = {
   avatarInitials(name) { return (name || '?').split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2); },
 };
 
-App.toggleMobileMenu = function() {
-  const sb = document.getElementById('sidebar');
-  if (sb) sb.classList.
 // Mobile menu helpers (robust version)
 App.toggleMobileMenu = function() {
   const sb = document.getElementById('sidebar');
