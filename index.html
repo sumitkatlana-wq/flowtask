@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="description" content="FlowTask — Your career-critical productivity system">
   <meta name="theme-color" content="#7F77DD">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -596,18 +596,19 @@ a { color: var(--accent); text-decoration: none; }
 /* ─── Responsive ──────────────────────────────────────────────────────────── */
 @media (max-width: 768px) {
   #mob-menu-btn { display: flex; }
-  .sidebar { position: fixed; left: -100%; top: 0; bottom:  </style>
+  #sidebar-backdrop.visible { display: block; }
+  .sidebar  </style>
 </head>
 <body>
 
-<!-- Hamburger button (mobile) -->
-<button id="mob-menu-btn" onclick="App.toggleMobileMenu()" aria-label="Menu">
+<!-- Hamburger button (mobile only) -->
+<button id="mob-menu-btn" aria-label="Menu">
   <i class="ti ti-menu-2"></i>
 </button>
 
 <div id="app">
   <div class="sidebar" id="sidebar"></div>
-  <div id="sidebar-backdrop" onclick="App.closeMobileMenu()"></div>
+  <div id="sidebar-backdrop"></div>
   <div class="main-area" id="main-area"></div>
   <div class="detail-panel" id="detail-panel"></div>
 </div>
@@ -1086,6 +1087,9 @@ const App = {
     this.renderMain();
     this.closeDetail();
     document.title = `FlowTask — ${this.viewTitle(view)}`;
+    // Auto-close sidebar on mobile after navigation
+    const sb = document.getElementById('sidebar');
+    if (sb) sb.classList.remove('open');
   },
 
   viewTitle(v) {
@@ -1919,11 +1923,20 @@ const App = {
 
 App.toggleMobileMenu = function() {
   const sb = document.getElementById('sidebar');
-  if (sb) sb.classList.toggle('open');
+  if (sb) sb.classList.
+// Mobile menu helpers (robust version)
+App.toggleMobileMenu = function() {
+  const sb = document.getElementById('sidebar');
+  const bd = document.getElementById('sidebar-backdrop');
+  if (!sb) return;
+  const isOpen = sb.classList.toggle('open');
+  if (bd) { isOpen ? bd.classList.add('visible') : bd.classList.remove('visible'); }
 };
 App.closeMobileMenu = function() {
   const sb = document.getElementById('sidebar');
+  const bd = document.getElementById('sidebar-backdrop');
   if (sb) sb.classList.remove('open');
+  if (bd) bd.classList.remove('visible');
 };
 // ─── FlowTask Views ───────────────────────────────────────────────────────
 
@@ -3147,9 +3160,20 @@ const Modals = {
 </script>
 
 <script>
+  // Theme
   const savedTheme = JSON.parse(localStorage.getItem('ft_settings') || '{}').theme;
   if (savedTheme === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
-  document.addEventListener('DOMContentLoaded', () => App.init());
+
+  // Boot
+  document.addEventListener('DOMContentLoaded', () => {
+    App.init();
+
+    // Hamburger menu wiring
+    const btn = document.getElementById('mob-menu-btn');
+    const bd  = document.getElementById('sidebar-backdrop');
+    if (btn) btn.addEventListener('click', () => App.toggleMobileMenu());
+    if (bd)  bd.addEventListener('click',  () => App.closeMobileMenu());
+  });
 </script>
 
 <script>
