@@ -1169,5 +1169,3 @@ App.resetData = function() {
   Object.values(DB.KEYS).forEach(k => localStorage.removeItem(k));
   location.reload();
 };
-location.reload();
-};
