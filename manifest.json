@@ -1,0 +1,19 @@
+{
+  "name": "FlowTask",
+  "short_name": "FlowTask",
+  "description": "Your career-critical productivity system",
+  "start_url": "/flowtask/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#7F77DD",
+  "orientation": "portrait-primary",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ],
+  "categories": ["productivity", "utilities"],
+  "shortcuts": [
+    { "name": "Today's Tasks", "url": "/flowtask/?view=today", "description": "Open today's focus list" },
+    { "name": "Quick Capture", "url": "/flowtask/?capture=1", "description": "Capture a task fast" }
+  ]
+}
