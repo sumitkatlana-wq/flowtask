@@ -2,7 +2,7 @@
   "name": "FlowTask",
   "short_name": "FlowTask",
   "description": "Your career-critical productivity system",
-  "start_url": "/",
+  "start_url": "/flowtask/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#7F77DD",
